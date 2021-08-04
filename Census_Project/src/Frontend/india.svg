@@ -1,39 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html>
-<html>
-<head>
-   <title>State Page</title>
-   <style>
-      #india-map
-      {
-         display:block;
-         position: absolute;
-         top:80px;
-         left:0;
-         width:100%;
-         height:100%;
-      }
-      body
-      {
-         background-color: #ffd40063;
-      }
-      path:hover, circle:hover 
-      {
-         stroke: #002868 !important;
-         stroke-width:2px;
-         stroke-linejoin: round;
-         fill: #002868 !important;
-         cursor: pointer;
-      }
-
-   </style>
-</head>
-<body>
-   <h1 style="color:red">Select a state</h1><br><br><br>
-   <!--<object data="india.svg" type="image/svg+xml" id="indiasvg" preserveAspectRatio="xMinYMin meet" width="100%" height="100%"></object>-->
-
-</body>
-</html>
 <svg
    xmlns:mapsvg="http://mapsvg.com"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
