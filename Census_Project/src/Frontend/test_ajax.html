@@ -10,21 +10,42 @@
         }
         table, th, td 
         {
-            color:red;
+            margin: auto;
+            color:black;
             border: solid 1px #DDD;
             border-collapse: collapse;
             padding: 2px 3px;
             text-align: center;
+            border-color:red;
+            font-size: medium;
         }
         th {
             color:red;
             font-weight:bold;
+        }
+        body
+        {
+          background-color: #eb198c63;
+        }
+        table
+        {
+          width:75%;
+        }
+        #state_dropdown
+        {
+          margin-left: 200px;
+          border-radius: 5px;
+        }
+        #image_container
+        {
+          margin-left: 650px;
         }
     </style> 
 </head>
 <!--created form-->
 
 <body>
+  <h1 style="text-align: center;color:red">Select a State</h1>
   <!--added dropdown for user to select the state-->
   <select id="state_dropdown">
     <option>Select state</option>

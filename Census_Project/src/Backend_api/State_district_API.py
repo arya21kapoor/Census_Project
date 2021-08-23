@@ -18,6 +18,7 @@ import ast
 
 #Created flask application object
 app=Flask(__name__)
+
 #app.config["DEBUG"]=
 #Enabled CORS
 CORS(app)
