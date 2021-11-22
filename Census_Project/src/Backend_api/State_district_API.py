@@ -15,6 +15,11 @@ from skcriteria.madm import simple
 import numpy as np
 from statistics import mean
 import ast
+from SQL_databse import SQL_server_conn
+
+db=SQL_server_conn.Database()
+cursor=db.connect()
+
 
 # Created flask application object
 app = Flask(__name__)
@@ -118,8 +123,8 @@ class Districts(Resource):
             # Retreiving the state name
             state_name = args['state']
             # Established Connection to the Data Base using SQL Server Authentication
-            connect = pyodbc.connect(
-                'DRIVER={SQL Server};Server=LAPTOP-V5I3M0RK\SQLEXPRESS;Database=stock;UID=ABC_login;PWD=abc;Trusted_connection=yes;')
+            #connect = pyodbc.connect(
+             #   'DRIVER={SQL Server};Server=LAPTOP-V5I3M0RK\SQLEXPRESS;Database=stock;UID=ABC_login;PWD=abc;Trusted_connection=yes;')
             print("Connection Established")
             # Declared Cursor Object
             # Created different lists which can contain the average points of different districts for the 4 algo's being used.
