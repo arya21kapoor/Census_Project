@@ -134,7 +134,7 @@ class Districts(Resource):
             max_wp_l = []
             dis_l = []
             res_l = []
-            cursor = connect.cursor()
+            # cursor = connect.cursor()
             #cursor.execute("select top 1 distinct(district_name) from census where state_name=(?)",state_name)
             cursor.execute(
                 "select district_name from census where state_name=(?) group by DISTRICT_NAME;", state_name)
@@ -353,8 +353,8 @@ class Districts(Resource):
             # Printing the return list which is going to be sent to the front-end
             print(return_list)
 
-            cursor.close()
-            connect.close()
+            # cursor.close()
+            # connect.close()
 
             # return {'data':res_dict},200
             # JSON data sent

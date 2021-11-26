@@ -167,6 +167,16 @@
 			const obj=$("path").get(index);
 			var state_name=document.getElementsByTagName("path")[index].getAttribute("title");
 			alert("State selected: "+ state_name);
+			window.location.href="test_ajax.html?state="+state_name;
+			var state;
+			$.ajax({
+				url:'test_ajax.html',
+				type:GET,
+				success:function(data){
+					state=$('#state_dropdown').html($(data).find('#state_dropdown').html());
+
+				}
+			})
 			/*
 			alert("Click on svg successful:" + obj.title)
 			alert("Click on svg successful:" + obj)
