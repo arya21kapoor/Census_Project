@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 <head>
   <title>Districts Page</title>
   <!-- Added basic styling-->
@@ -21,10 +22,64 @@
             font-weight:bold;
         }
     </style> 
+=======
+
+<head>
+  <title>Districts Page</title>
+  <!-- Added basic styling-->
+  <style>
+    th,
+    td,
+    p,
+    input {
+      color: red;
+      font: 14px Verdana;
+    }
+
+    table,
+    th,
+    td {
+      margin: auto;
+      color: black;
+      border: solid 1px #DDD;
+      border-collapse: collapse;
+      padding: 2px 3px;
+      text-align: center;
+      border-color: red;
+      font-size: medium;
+    }
+
+    th {
+      color: red;
+      font-weight: bold;
+    }
+
+    body {
+      background-color: #eb198c63;
+    }
+
+    table {
+      width: 75%;
+    }
+
+    #state_dropdown {
+      margin-left: 200px;
+      border-radius: 5px;
+    }
+
+    #image_container {
+      margin-left: 650px;
+    }
+  </style>
+>>>>>>> State_district_ranking
 </head>
 <!--created form-->
 
 <body>
+<<<<<<< HEAD
+=======
+  <h1 style="text-align: center;color:red">Select a State</h1>
+>>>>>>> State_district_ranking
   <!--added dropdown for user to select the state-->
   <select id="state_dropdown">
     <option>Select state</option>
@@ -34,10 +89,17 @@
   <br><br>
 
   <!--contains the loading image-->
+<<<<<<< HEAD
   <div id="image_container"; style="display:none;"><img src="loading-buffering.gif" alt="loading.."></div>
   
   <!--contains the table-->
   <p id="container"></p> 
+=======
+  <div id="image_container" ; style="display:none;"><img src="loading-buffering.gif" alt="loading.."></div>
+
+  <!--contains the table-->
+  <p id="container"></p>
+>>>>>>> State_district_ranking
 </body>
 
 
@@ -45,6 +107,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
+<<<<<<< HEAD
 $(document).ready(function(){
     //connected to the API which sends state details
   $.get("http://localhost:5000/states", function(data, status){
@@ -57,6 +120,154 @@ $(document).ready(function(){
       {
         //getting the state dictionary over here
         const state_dict=data[i]
+=======
+  
+
+  function dropevent()
+  {
+    //sending the alert for the state selected by the user
+    alert("State selected:  " + $('option:selected').text());
+      //Disabling dropdown after selection down
+      document.getElementById("state_dropdown").disabled = true
+      var state_sel = $('option:selected').text()
+      //For the states containing & 
+      if (state_sel.includes("&") == true) {
+        console.log(state_sel.includes("&"))
+        state_sel = state_sel.replace("&", "%26")
+        console.log(state_sel)
+      }
+      //This segment handles the part when the AJAX request is sent
+      $(document).ajaxStart(function () {
+        // Show image container
+        $("#image_container").show();
+        //Hiding the table
+        $("#container").hide()
+      });
+      //AJAX request completed
+      $(document).ajaxComplete(function () {
+        // Hide image container
+        $("#image_container").hide();
+        //Showing the table
+        $("#container").show()
+      });
+
+
+      //This is the district_url sent to the Districts API 
+      var district_url = "http://localhost:5000/districts?state=" + state_sel
+      console.log("URL used: " + district_url)
+      console.log("State sent to the districts API:" + state_sel)
+
+      $.get(district_url, function (data, status) {
+
+        /*
+         $(document).ajaxStart(function(){
+     // Show image container
+               $("#image_container").show();
+               $("#container").hide()
+           });
+       $(document).ajaxComplete(function(){
+     // Hide image container
+           $("#image_container").hide();
+           $("#container").show()
+         });  
+         */
+        //Column array containing the headers
+        var col = []
+        //Retreiving the data 
+        //Note: Had to .data because the list returned also is the value of key data
+        dis_data = data.data
+        console.log("Data Length:" + dis_data.length)
+        console.log("Data used to create table:" + JSON.stringify(dis_data))
+
+        for (var key in dis_data[0]) {
+
+          col.push(key)
+          //console.log("Header name: " + key)
+        }
+        //console.log("Column array length:" + col.length)
+        //Created the table
+        var table = document.createElement("table")
+
+        //Inserted a row at the last position in the table(appending rows using (-1)index)
+        var tr = table.insertRow(-1)
+
+        for (var i = 0; i < col.length; i++) {
+          //Created element th for table headers
+          var th = document.createElement("th")
+          th.innerHTML = col[i]
+          tr.append(th)
+        }
+
+        //Adding the data in the table
+        for (var i = 0; i < dis_data.length; i++) {
+          //Inserted the row again
+          tr = table.insertRow(-1)
+          for (var j = 0; j < col.length; j++) {
+            //Inserted the table cell at last row (this is appending cells to the row using (-1) index)
+            var tablecell = tr.insertCell(-1)
+            tablecell.innerHTML = dis_data[i][col[j]]
+            //console.log(dis_data[i][col[j]])
+
+          }
+        }
+        //Retreiving the <p> supposed to contain table
+        var tablecontainer = document.getElementById("container")
+        //Emptying this everytime a  new selection is made
+        tablecontainer.innerHTML = ""
+        //Appending table to container
+        tablecontainer.appendChild(table)
+        //Enabling the dropdown
+        document.getElementById("state_dropdown").disabled = false
+
+      })
+  }
+  function getParameters()
+  {
+
+    console.log(window.location.href);
+    //Using location.href to get the url 
+    let url = window.location.href;
+    //Splitting it using the ? delimeter
+    let paramString=url.split('?')[1];
+    //Retreiving the parameters array using & as delimeter
+    let params_arr=paramString.split('&');
+
+    for(let i=0;i<params_arr.length;i++)
+    {
+      //Now using the = delimeter to get the key and value pair
+      let pair=params_arr[i].split('=');
+      console.log("Key:",pair[0]);
+      console.log("Value:",pair[1]);
+      let selstate=pair[1];
+      //Performing a check if the %20 exists in the state name
+      var find = '%20';
+      //Using regular expression to find all occurences of %20
+      var re = new RegExp(find, 'g');
+      selstate = selstate.replace(re, ' ');
+      //Replacing the occurences with & so that combobox value can be selected
+      selstate=selstate.replace("and","&");
+      finstate=selstate.toUpperCase();
+      console.log("Final selection:",finstate);
+      //Finally changing the value in combobox
+      $("#state_dropdown").val(finstate);
+      console.log("Value:",$("#state_dropdown").val());
+      //Trigerring the dropevent
+      dropevent();
+    }
+  }
+  $(document).ready(function () {
+
+    //connected to the API which sends state details
+    $.get("http://localhost:5000/states", function (data, status) {
+      let text = " "
+      //array to store state names
+      var state_name_array = []
+      //a random line to display the first state
+      //console.log("Data: " + JSON.stringify(data[0].State) + "\nStatus: " + status+"\nLength of Data:" + data.length);
+      for (let i = 0; i < data.length; i++) {
+        //getting the state dictionary over here
+        const state_dict = data[i]
+>>>>>>> State_district_ranking
         //text+=state_dict.State + "\n"
         //retreiving the state name and appending it in the array
         state_name_array.push(state_dict.State)
@@ -64,6 +275,7 @@ $(document).ready(function(){
       //a line to display the array  elements in the console
       //console.log("State names:"+ "\n" + state_name_array)
       //Fetching the dropdown by id 
+<<<<<<< HEAD
       dropdown=document.getElementById("state_dropdown")
       for(var i=0;i<state_name_array.length;i++)
       {
@@ -184,4 +396,26 @@ $(document).ready(function(){
   })  
 })
 </script>
+=======
+      dropdown = document.getElementById("state_dropdown")
+      for (var i = 0; i < state_name_array.length; i++) {
+        //Retreiving the state_name from the array
+        var state_name = state_name_array[i].replace(/'/g, '')
+        //Creating the options using the createElement()
+        var el = document.createElement("option")
+        //Initialising the text content and the value as the state_name
+        el.textContent = state_name
+        el.value = state_name
+        console.log("Value:",el.value);
+        //Appending this el object in the dropdown
+        dropdown.appendChild(el)
+      }
+      getParameters();
+    });
+    //accessing the dropdown by mentioning the id
+    $("#state_dropdown").change(dropevent);
+  })
+</script>
+
+>>>>>>> State_district_ranking
 </html>
