@@ -3,7 +3,10 @@
 
 <head>
   <title>Districts Page</title>
+
+
   <!-- Added basic styling-->
+  <!---
   <style>
     th,
     td,
@@ -48,13 +51,76 @@
       margin-left: 650px;
     }
   </style>
+-->
+
+  <style>
+
+
+    #state_dropdown {
+      width: 20%;
+      margin-left:50px;
+      border-radius:10px;
+    }
+
+    body
+    {
+      background-color: lightblue;
+    }
+    #data_table{
+      width: 95%;
+      margin: auto;
+      border-radius: 15px;
+    }
+    #image_container {
+      margin-left: 650px;
+    }
+
+    #navbar {
+      margin: auto;
+      width: 93%;
+      border-radius: 10px;
+    }
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 </head>
 <!--created form-->
 
-<body>
-  <h1 style="text-align: center;color:red">Select a State</h1>
+<body class="bg-primary p-2 text-white bg-opacity-25">
+  <h1 style="text-align: center;color:black">Select a State</h1>
   <!--added dropdown for user to select the state-->
-  <select id="state_dropdown">
+  <br>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="state_page.html">Map</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="state_page.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br><br>
+  <select id="state_dropdown" class="form-select">
     <option>Select state</option>
   </select>
   <br>
@@ -73,63 +139,60 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-  function showloader() 
-  {
-    lc=document.getElementById("image_container");
-    lc.style.display="block";
-    cont=document.getElementById("container");
-    cont.style.display="none";
+  function showloader() {
+    lc = document.getElementById("image_container");
+    lc.style.display = "block";
+    cont = document.getElementById("container");
+    cont.style.display = "none";
   }
 
-  function hideloader() 
-  {
-    lc=document.getElementById("image_container");
-    lc.style.display="none";
-    container=document.getElementById("container");
-    cont.style.display="block";
+  function hideloader() {
+    lc = document.getElementById("image_container");
+    lc.style.display = "none";
+    container = document.getElementById("container");
+    cont.style.display = "block";
   }
-  function dropevent()
-  {
+  function dropevent() {
     //sending the alert for the state selected by the user
     alert("State selected:  " + $('option:selected').text());
-      //Disabling dropdown after selection down
-      document.getElementById("state_dropdown").disabled = true
-      var state_sel = $('option:selected').text()
-      //For the states containing & 
-      if (state_sel.includes("&") == true) {
-        console.log(state_sel.includes("&"))
-        state_sel = state_sel.replace("&", "%26")
-        console.log(state_sel)
-      }
-      /*
-      //This segment handles the part when the AJAX request is sent
-      $(document).ajaxStart(function () {
-        // Show image container
-        $("#image_container").show();
-        //Hiding the table
-        $("#container").hide()
-      });
-      //AJAX request completed
-      $(document).ajaxComplete(function () {
-        // Hide image container
-        $("#image_container").hide();
-        //Showing the table
-        $("#container").show()
-      });
-      */
-      //This is the district_url sent to the Districts API 
-      var district_url = "http://localhost:5000/districts?state=" + state_sel
-      console.log("URL used: " + district_url)
-      console.log("State sent to the districts API:" + state_sel)
-      showloader();
+    //Disabling dropdown after selection down
+    document.getElementById("state_dropdown").disabled = true
+    var state_sel = $('option:selected').text()
+    //For the states containing & 
+    if (state_sel.includes("&") == true) {
+      console.log(state_sel.includes("&"))
+      state_sel = state_sel.replace("&", "%26")
+      console.log(state_sel)
+    }
+    /*
+    //This segment handles the part when the AJAX request is sent
+    $(document).ajaxStart(function () {
+      // Show image container
+      $("#image_container").show();
+      //Hiding the table
+      $("#container").hide()
+    });
+    //AJAX request completed
+    $(document).ajaxComplete(function () {
+      // Hide image container
+      $("#image_container").hide();
+      //Showing the table
+      $("#container").show()
+    });
+    */
+    //This is the district_url sent to the Districts API 
+    var district_url = "http://localhost:5000/districts?state=" + state_sel
+    console.log("URL used: " + district_url)
+    console.log("State sent to the districts API:" + state_sel)
+    showloader();
 
-      $.ajax({
+    $.ajax({
 
-        url: district_url,
-        
-        success: function(data) {
-          console.log("Data received:"+JSON.stringify(data));
-          var col = []
+      url: district_url,
+
+      success: function (data) {
+        console.log("Data received:" + JSON.stringify(data));
+        var col = []
         //Retreiving the data 
         //Note: Had to .data because the list returned also is the value of key data
         dis_data = data.data
@@ -144,13 +207,17 @@
         //console.log("Column array length:" + col.length)
         //Created the table
         var table = document.createElement("table")
+        table.className = "table table-success table-striped";
+        table.id="data_table";
 
         //Inserted a row at the last position in the table(appending rows using (-1)index)
         var tr = table.insertRow(-1)
+        //tr.className="table table-success table-striped";
 
         for (var i = 0; i < col.length; i++) {
           //Created element th for table headers
           var th = document.createElement("th")
+          //th.className = "table table-striped";
           th.innerHTML = col[i]
           tr.append(th)
         }
@@ -159,9 +226,11 @@
         for (var i = 0; i < dis_data.length; i++) {
           //Inserted the row again
           tr = table.insertRow(-1)
+          //tr.className = "table table-striped";
           for (var j = 0; j < col.length; j++) {
             //Inserted the table cell at last row (this is appending cells to the row using (-1) index)
             var tablecell = tr.insertCell(-1)
+            //tablecell.className = "table table-striped";
             tablecell.innerHTML = dis_data[i][col[j]]
             //console.log(dis_data[i][col[j]])
 
@@ -175,40 +244,38 @@
         tablecontainer.appendChild(table)
         //Enabling the dropdown
         hideloader();
-          document.getElementById("state_dropdown").disabled = false;
-        }
-      })
+        document.getElementById("state_dropdown").disabled = false;
+      }
+    })
   }
-  function getParameters()
-  {
+  function getParameters() {
 
     console.log(window.location.href);
     //Using location.href to get the url 
     let url = window.location.href;
     //Splitting it using the ? delimeter
-    let paramString=url.split('?')[1];
+    let paramString = url.split('?')[1];
     //Retreiving the parameters array using & as delimeter
-    let params_arr=paramString.split('&');
+    let params_arr = paramString.split('&');
 
-    for(let i=0;i<params_arr.length;i++)
-    {
+    for (let i = 0; i < params_arr.length; i++) {
       //Now using the = delimeter to get the key and value pair
-      let pair=params_arr[i].split('=');
-      console.log("Key:",pair[0]);
-      console.log("Value:",pair[1]);
-      let selstate=pair[1];
+      let pair = params_arr[i].split('=');
+      console.log("Key:", pair[0]);
+      console.log("Value:", pair[1]);
+      let selstate = pair[1];
       //Performing a check if the %20 exists in the state name
       var find = '%20';
       //Using regular expression to find all occurences of %20
       var re = new RegExp(find, 'g');
       selstate = selstate.replace(re, ' ');
       //Replacing the occurences with & so that combobox value can be selected
-      selstate=selstate.replace("and","&");
-      finstate=selstate.toUpperCase();
-      console.log("Final selection:",finstate);
+      selstate = selstate.replace("and", "&");
+      finstate = selstate.toUpperCase();
+      console.log("Final selection:", finstate);
       //Finally changing the value in combobox
       $("#state_dropdown").val(finstate);
-      console.log("Value:",$("#state_dropdown").val());
+      console.log("Value:", $("#state_dropdown").val());
       //Trigerring the dropevent
       dropevent();
     }
@@ -241,7 +308,7 @@
         //Initialising the text content and the value as the state_name
         el.textContent = state_name
         el.value = state_name
-        console.log("Value:",el.value);
+        console.log("Value:", el.value);
         //Appending this el object in the dropdown
         dropdown.appendChild(el)
       }
