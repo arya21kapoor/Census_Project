@@ -347,7 +347,7 @@ class Districts(Resource):
             length = len(district_list)
             for i in range(length):
                 return_dict = {
-                    'District': district_list[i], 'Points': points_list[i], 'Rank': result_list[i]}
+                    'District': district_list[i], 'Algo Points': points_list[i], 'Index': result_list[i]}
                 return_list.append(return_dict)
 
             # Printing the return list which is going to be sent to the front-end
