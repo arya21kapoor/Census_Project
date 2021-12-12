@@ -80,19 +80,22 @@ class States(Resource):
             rk_list = list(state_df.iloc[:, 4])
             rs_list = []
             for i in range(len(state_list)):
+                #Replacing the ' from the excel file with empty string
                 s_dict = {
-                    'State': state_list[i], 'Best_District': bd_list[i], 'Points': pt_list[i], 'Rank': rk_list[i]}
+                    'State': state_list[i].replace("'",""), 'Best District': bd_list[i].replace("'",""), 'Points': pt_list[i], 'Index': rk_list[i]}
                 rs_list.append(s_dict)
 
             print("State API running...")
-            # print(rs_list)
+            #print(rs_list)
 
             '''
             response=rs_list
             response.headers.add("Access-Control-Allow-Origin","*")
             '''
             # returning the rs_list containing the data about state rankings
-            return jsonify(rs_list)
+            #return jsonify(rs_list)
+            return rs_list
+           
 
 
 # creating the endpoint for url '/state'
