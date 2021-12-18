@@ -56,6 +56,8 @@
 			padding: 5px;
 			margin-left: 45px;
 			border-radius: 10px;
+			animation-name: hide_left;
+			animation-duration:6s;
 		}
 
 		rect.btn {
@@ -80,6 +82,13 @@
 		#footer
 		{
 			background-color: black;
+		}
+
+		
+
+		@keyframes hide_left{
+			from { opacity:0;}
+			to {opacity: 1;}
 		}
 
 		#footer_container
