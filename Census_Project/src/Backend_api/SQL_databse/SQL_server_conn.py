@@ -17,7 +17,7 @@ class Database(metaclass=MetaSingleton):
     def connect(self):
         if self.connection is None:
             self.connection = pyodbc.connect(
-                'DRIVER={SQL Server};Server=LAPTOP-V5I3M0RK\SQLEXPRESS;Database=stock;UID=ABC_login;PWD=abc;Trusted_connection=yes;')
+                'DRIVER={SQL Server};Server=LAPTOP-V5I3M0RK\SQLEXPRESS;Database=stock;UID=ABC_login;PWD=abc;')
 
             # self.connection.autocommit = False
             self.cursorobj = self.connection.cursor()

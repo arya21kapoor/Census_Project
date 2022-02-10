@@ -97,7 +97,7 @@ class States(Resource):
             return rs_list
            
 
-
+#app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/test')
 # creating the endpoint for url '/state'
 api.add_resource(States, '/states')
 '''
@@ -121,6 +121,7 @@ class Districts(Resource):
             parser.add_argument('state', required=True)
             # Adding the arguments to a dictionary
             args = parser.parse_args()
+            
             print("District API running....")
             print("State name:", args['state'])
             # Retreiving the state name
@@ -139,9 +140,15 @@ class Districts(Resource):
             res_l = []
             # cursor = connect.cursor()
             #cursor.execute("select top 1 distinct(district_name) from census where state_name=(?)",state_name)
+            
             cursor.execute(
-                "select district_name from census where state_name=(?) group by DISTRICT_NAME;", state_name)
+                """select district_name from census where state_name=(?) group by DISTRICT_NAME;""", state_name)
+            #query_string="""select TOP 10 * from mastercity"""
+            #cursor.execute(query_string)
+            #return {"success":"run","state_name":state_name}
             district_list = list(cursor.fetchall())
+            #district_list = cursor.fetchall()
+            #return {"success":district_list}
             print(district_list)
             for d in district_list:
                 print("\nDistrict name:", d)
